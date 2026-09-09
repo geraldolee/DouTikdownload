@@ -24,20 +24,15 @@ jobs:
         with:
           channel: 'stable'
 
-      - name: Re-create Clean Project Structure
+      - name: Generate Android Skeleton
         run: |
-          mkdir temp_app
-          cd temp_app
-          flutter create --org com.clean.doudownloader doudownloader
-          cp -r doudownloader/android ../
-          cd ..
-          rm -rf temp_app
+          flutter create --platforms=android --org com.clean.doudownloader .
 
       - name: Install Dependencies
         run: flutter pub get
 
       - name: Build APK
-        run: flutter build apk --release --no-tree-shake-icons --no-pub
+        run: flutter build apk --release --no-tree-shake-icons
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
